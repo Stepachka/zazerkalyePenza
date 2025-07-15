@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор стоимости стеклянных изделий</title>
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #171819;
+    margin: 0;
+    padding: 0;
+}
+
+
+.calculator {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #87CEFA;
+    margin-bottom: 30px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+padding: 20px;
+border-radius: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+}
+
+#calculateBtn{
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+select, input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 8px;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    background-color: #87CEFA;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: ghostwhite;
+    color:#87CEFA ;
+}
+
+.radio-buttons {
+    display: center;
+    text-align: center;
+    justify-content: flex-start;
+    gap: 20px;
+    width: 100%;
+    padding: 10px 0;
+    color: black;
+    font-size: 35px;
+    padding: 20px;
+
+}
+
+.radio-buttons input[type="radio"] {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    vertical-align: middle;
+    border-radius: 10%;
+    border: 1px solid darkgrey;
+    appearance: none;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.radio-buttons input[type="radio"]:checked {
+    background-color: #87CEFA;
+    border-color: whitesmoke;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.radio-buttons label {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #f1f1f1;
+    color: #333;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    width: 120px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.radio-buttons input[type="radio"]:checked + label {
+    background-color: #6c4f98;
+    color: white;
+    border: 1px solid #6c4f98;
+}
+
+.radio-buttons input[type="radio"]:hover + label {
+    background-color: #e8e8e8;
+}
+
+#glass{
+
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #87CEFA;
+    text-align: center;
+
+    border-radius: 10px;
+}
+
+#result span {
+    color: #87CEFA;
+
+}
+
+.glassType{
+
+}
+    </style>
+</head>
+<body>
+    <a href="index.html">
+    <button>На главную</button>
+    </a>
+    <div class="calculator">
+        <h1>Калькулятор стоимости изделия</h1>
+
+        <form id="calcForm">
+            <div class="form-group">
+                <label for="material"></label>
+                <div class="radio-buttons">
+                    <input type="radio" id="glass" name="material" value="glass" checked> Стекло
+                    <input type="radio" id="mirror" name="material" value="mirror"> Зеркало
+                </div>
+            </div>
+
+            <div class="form-group" id="glassTypeDiv">
+                <label for="glassType">Вид стекла</label>
+                <select id="glassType">
+                    <option value="transparent">Прозрачное</option>
+                    <option value="matte">Матовое</option>
+                    <option value="tinted">Тонированное</option>
+                    <option value="textured">Узорчатое</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="mirrorTypeDiv" style="display: none;">
+                <label for="mirrorType">Вид зеркала</label>
+                <select id="mirrorType">
+                    <option value="ordinary">Обычное</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="thickness">Толщина</label>
+                <select id="thickness">
+                    <option value="4">4 мм</option>
+                    <option value="5">5 мм</option>
+                    <option value="6">6 мм</option>
+                    <option value="8">8 мм</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="shape">Форма</label>
+                <select id="shape">
+                    <option value="rectangle">Прямоугольник</option>
+                    <option value="circle">Круг</option>
+                    <option value="oval">Овал</option>
+                    <option value="other">Другая</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="height">Высота (мм)</label>
+                <input type="number" id="height" placeholder="Высота" required>
+            </div>
+
+            <div class="form-group">
+                <label for="width">Ширина (мм)</label>
+                <input type="number" id="width" placeholder="Ширина" required>
+            </div>
+
+            <div class="form-group">
+                <label for="processing">Обработка</label>
+                <select id="processing">
+                    <option value="none">Нет</option>
+                    <option value="euro">Еврокромка</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Количество (шт)</label>
+                <input type="number" id="quantity" value="1">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" id="calculateBtn">Рассчитать</button>
+            </div>
+
+            <div id="result">
+                <h3>Итоговая стоимость: <span id="totalPrice">0</span> руб.</h3>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('calcForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const material = document.querySelector('input[name="material"]:checked').value;
+    const thickness = parseInt(document.getElementById('thickness').value);
+    const height = parseInt(document.getElementById('height').value);
+    const width = parseInt(document.getElementById('width').value);
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const processing = document.getElementById('processing').value;
+
+    let pricePerSquareMeter = 0;
+    let processingCost = 0;
+
+    // Цена за стекло или зеркало
+    if (material === 'mirror') {
+        pricePerSquareMeter = 2200; // Зеркало
+    } else {
+        switch (thickness) {
+            case 4:
+                // Матовое или тонированное стекло с толщиной 4мм
+                if (document.getElementById('glassType').value === 'matte' || document.getElementById('glassType').value === 'tinted') {
+                    pricePerSquareMeter = 2500;
+                } else {
+                    pricePerSquareMeter = 1700; // Прозрачное стекло
+                }
+                break;
+            case 5:
+                pricePerSquareMeter = 2200;
+                break;
+            case 6:
+                pricePerSquareMeter = 2500;
+                break;
+            case 8:
+                pricePerSquareMeter = 3000;
+                break;
+            default:
+                pricePerSquareMeter = 1700;
+        }
+    }
+
+    // Цена за еврокромку
+    if (processing === 'euro') {
+        processingCost = thickness >= 5 ? 150 : 75;
+    }
+
+    // Вычисление площади и итоговой стоимости
+    const area = (height * width) / 1000000; // converting mm^2 to m^2
+    const basePrice = pricePerSquareMeter * area;
+    const totalPrice = (basePrice + (processingCost * area)) * quantity;
+
+    // Отображение итоговой стоимости
+    document.getElementById('totalPrice').textContent = totalPrice.toFixed(2);
+});
+
+// Скрытие/показ блока для вида стекла/зеркала в зависимости от материала
+document.querySelectorAll('input[name="material"]').forEach(function(input) {
+    input.addEventListener('change', function() {
+        const material = this.value;
+        
+        if (material === 'mirror') {
+            document.getElementById('glassTypeDiv').style.display = 'none';
+            document.getElementById('mirrorTypeDiv').style.display = 'block';
+            document.getElementById('thickness').innerHTML = `
+                <option value="4">4 мм</option>
+            `;
+        } else {
+            document.getElementById('glassTypeDiv').style.display = 'block';
+            document.getElementById('mirrorTypeDiv').style.display = 'none';
+            document.getElementById('thickness').innerHTML = `
+                <option value="4">4 мм</option>
+                <option value="5">5 мм</option>
+                <option value="6">6 мм</option>
+                <option value="8">8 мм</option>
+            `;
+        }
+    });
+});
+
+// Обновление доступных толщин в зависимости от выбранного вида стекла
+document.getElementById('glassType').addEventListener('change', function() {
+    const glassType = this.value;
+
+    if (glassType === 'matte' || glassType === 'tinted') {
+        document.getElementById('thickness').innerHTML = `<option value="4">4 мм</option>`;
+    } else {
+        document.getElementById('thickness').innerHTML = `
+            <option value="4">4 мм</option>
+            <option value="5">5 мм</option>
+            <option value="6">6 мм</option>
+            <option value="8">8 мм</option>
+        `;
+    }
+});
+    </script>
+</body>
+</html>
